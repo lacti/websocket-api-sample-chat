@@ -1,0 +1,51 @@
+service:
+  name: websocket-chat
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "execute-api:ManageConnections"
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "*"
+
+functions:
+  connect:
+    handler: handler.connect
+    events:
+      - websocket:
+          route: $connect
+  disconnect:
+    handler: handler.disconnect
+    events:
+      - websocket:
+          route: $disconnect
+  broadcast:
+    handler: handler.broadcast
+    events:
+      - websocket:
+          route: $default
+
+resources:
+  Resources:
+    ConnectionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ConnectionIds
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connectionId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
