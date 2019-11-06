@@ -1,6 +1,7 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { ApiGatewayManagementApi, DynamoDB } from "aws-sdk";
 import "source-map-support/register";
+import { newApiGatewayManagementApi } from "./apigatewaymanagementapi";
 
 export const connect: APIGatewayProxyHandler = async event => {
   await new DynamoDB()
@@ -33,6 +34,21 @@ export const disconnect: APIGatewayProxyHandler = async event => {
 };
 
 export const broadcast: APIGatewayProxyHandler = async event => {
+  if (event.body === "exit") {
+    await newApiGatewayManagementApi({
+      endpoint:
+        event.requestContext.domainName + "/" + event.requestContext.stage
+    })
+      .deleteConnection({
+        ConnectionId: event.requestContext.connectionId
+      })
+      .promise();
+    return {
+      statusCode: 200,
+      body: "OK"
+    };
+  }
+
   const dbResult = await new DynamoDB()
     .scan({
       TableName: `ConnectionIds`,
