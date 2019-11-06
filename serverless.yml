@@ -6,16 +6,19 @@ plugins:
 
 provider:
   name: aws
+  region: ap-northeast-2
   runtime: nodejs10.x
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "execute-api:ManageConnections"
-      Resource: "*"
-    - Effect: "Allow"
-      Action:
-        - "dynamodb:*"
-      Resource: "*"
+        - "dynamodb:PutItem"
+        - "dynamodb:DeleteItem"
+        - "dynamodb:Scan"
+      Resource:
+        - Fn::Join:
+            - ""
+            - - Fn::GetAtt: [ConnectionTable, Arn]
+              - "*"
 
 functions:
   connect:
