@@ -5,6 +5,7 @@
   "main": "handler.ts",
   "scripts": {},
   "dependencies": {
+    "@yingyeothon/aws-apigateway-management-api": "^2.536.0",
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {

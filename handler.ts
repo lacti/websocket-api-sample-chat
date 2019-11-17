@@ -1,3 +1,4 @@
+import { newApiGatewayManagementApi } from "@yingyeothon/aws-apigateway-management-api";
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { ApiGatewayManagementApi, DynamoDB } from "aws-sdk";
 import "source-map-support/register";
