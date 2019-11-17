@@ -6,7 +6,8 @@ plugins:
 
 provider:
   name: aws
-  region: ap-northeast-2
+  stage: ${env:NODE_ENV, "development"}
+  region: ${env:AWS_REGION}
   runtime: nodejs10.x
   iamRoleStatements:
     - Effect: "Allow"
@@ -42,7 +43,7 @@ resources:
     ConnectionTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ConnectionIds
+        TableName: ${env:CONNECTION_TABLE_NAME, "ConnectionIds"}
         AttributeDefinitions:
           - AttributeName: connectionId
             AttributeType: S
