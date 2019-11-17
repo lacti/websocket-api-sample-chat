@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "A simple example of chat server with AWS WebSocket API",
   "main": "handler.ts",
-  "scripts": {},
+  "scripts": {
+    "build": "sls package",
+    "deploy": "sls deploy",
+    "status": "sls info",
+    "print-config": "sls print",
+    "delete-stack": "sls remove"
+  },
   "dependencies": {
     "@yingyeothon/aws-apigateway-management-api": "^2.536.0",
     "source-map-support": "^0.5.16"
@@ -12,10 +18,15 @@
     "@types/aws-lambda": "^8.10.34",
     "@types/node": "10",
     "aws-sdk": "2.488.0",
+    "prettier": "^1.19.1",
+    "serverless": "^1.57.0",
     "serverless-webpack": "^5.3.1",
     "ts-loader": "^6.2.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.2",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.2",
+    "wscat": "^4.0.0"
   },
   "author": "jaeyoung.choi <lactrious@gmail.com>",
   "license": "MIT"
