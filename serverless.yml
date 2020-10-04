@@ -8,7 +8,7 @@ provider:
   name: aws
   stage: ${env:NODE_ENV, "development"}
   region: ${env:AWS_REGION}
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   iamRoleStatements:
     - Effect: "Allow"
       Action:
